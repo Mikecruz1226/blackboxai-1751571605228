@@ -1,0 +1,454 @@
+<style>
+.line-heading {
+	float: left;
+	font-weight: bold;
+	display: inline;
+	width: 260px;
+
+}
+
+.line-items{
+	margin-left: 280px;
+}
+
+</style>
+<h1>{{ general.S_PLANNAM2 }}</h1>
+
+<h2>Summary of Major Plan Provisions</h2>
+
+<div>
+
+
+<div class="line-heading">
+Plan Effective Date 
+</div>
+
+<ul class="line-items">
+	<li>{{ general.__S_PLEFDATE_LONG }}</li>
+</ul>
+
+<div class="line-heading">
+Plan Year 
+</div>
+
+<ul class="line-items">
+	<li>From {{ general.__AS_OF_DATE_BEGIN_LONG }} to {{ general.__AS_OF_DATE_END_LONG }}</li>
+</ul>
+
+<div class="line-heading">
+    Primary Eligibility 
+</div>
+
+<ul class="line-items">
+<li>Applicable to the following source(s):
+	<ul><li>
+		
+{{ general.aslistString }}
+{#
+{% if general.__ACTIVE_SEGMENTS['1'] == "Active" %}{{ general.__SEGMENTS['1'] }}{% endif %}{% if general.__ACTIVE_SEGMENTS['2'] == "Active" %}, {{ general.__SEGMENTS['2'] }}{% endif %}{% if general.__ACTIVE_SEGMENTS['3'] == "Active" %}, {{ general.__SEGMENTS['3'] }}{% endif %}{% if general.__ACTIVE_SEGMENTS['4'] == "Active" %}, {{ general.__SEGMENTS['4'] }}{% endif %}{% if general.__ACTIVE_SEGMENTS['5'] == "Active" %}, {{ general.__SEGMENTS['5'] }}{% endif %}{% if general.__ACTIVE_SEGMENTS['6'] == "Active" %}, {{ general.__SEGMENTS['6'] }}{% endif %}{% if general.__ACTIVE_SEGMENTS['7'] == "Active" %}, {{ general.__SEGMENTS['7'] }}{% endif %}
+#}
+
+	</li></ul></li>
+
+<li>All employees not excluded by class are eligible to enter on the entry date coincident with or next following completion of the following requirements:
+	<ul>
+		{% if general.S_ELMINSVY_PPrimary_ != 0 %}
+		<li>{{ general.S_ELMINSVY_PPrimary_ }} year of service</li>
+		{% endif %}
+
+		{% if general.S_ELMINSVM_PPrimary_ != 0 %}
+		<li>{{ general.S_ELMINSVM_PPrimary_ }} months of service</li>
+		{% endif %}
+
+		<li>Minimum age {{ general.S_ELMINAGY_PPrimary_ }}</li>
+		<li>Minimum hours {{ general.S_ELHOURS_PPrimary_ }}</li>
+        <li>Excluded Groups: 
+        
+        {% if general.S_ELEXCGRP == 3 %}		
+        
+        {{ general.S_ELEXCWD1 }} {{ general.S_ELEXCWD2 }}
+        
+        {% elseif general.S_ELEXCGRP == 2 %}		
+        
+        Employees covered by a collective bargaining unit under which pension benefits were a subject of good faith bargaining are excluded by class   
+
+        {% elseif general.S_ELEXCGRP == 1 %}		
+        
+        None
+
+        {% endif %}
+
+        </li>
+		<li>Entry date(s): 
+		
+        {% if general.S_ELENTCTL_PPrimary_ == 1 %}		
+January 1st
+		{% elseif general.S_ELENTCTL_PPrimary_ == 2 %}		
+December 31st
+		{% elseif general.S_ELENTCTL_PPrimary_ == 3 %}		
+January 1st and July 1st
+		{% elseif general.S_ELENTCTL_PPrimary_ == 4 %}		
+December 31st and June 30th
+		{% elseif general.S_ELENTCTL_PPrimary_ == 5 %}		
+January 1st, February 1st, March 1st, April 1st, May 1st, June 1st, July 1st, August 1st, September 1st, October 1st, November 1st, December 1st
+        {% elseif general.S_ELENTCTL_PPrimary_ == 6 %}	
+January 1st
+        {% elseif general.S_ELENTCTL_PPrimary_ == 7 %}		
+December 31st	
+        {% elseif general.S_ELENTCTL_PPrimary_ == 8 %}		
+January 1st	
+        {% elseif general.S_ELENTCTL_PPrimary_ == 9 %}		
+January 1st and July 1st	
+        {% elseif general.S_ELENTCTL_PPrimary_ == "A" %}		
+December 31st
+        {% elseif general.S_ELENTCTL_PPrimary_ == "B" %}
+Date Eligible
+        {% elseif general.S_ELENTCTL_PPrimary_ == "C" %}
+January 31st, February 28th, March 31st, April 30th, May 31st, June 30th, July 31st, August 31st, September 30th, October 31st, November 30th, December 31st.	
+        {% elseif general.S_ELENTCTL_PPrimary_ == "D" %}
+January 1st, April 1st, July 1st, October 1st
+		{% endif %}
+	
+	
+	</li></ul></li>
+</ul>
+
+<div class="line-heading">
+Normal Retirement Age 
+</div>
+
+<ul class="line-items">
+<li>All participants are eligible to retire with their full retirement benefit on the later of the following:
+<!-- <ul><li>Attainment of age {{general.S_NRMINAGE|round(0, 'floor')}}</li> -->
+<ul><li>Attainment of age {{general.S_NRMINAGE}}</li>
+
+    {% if general.S_NRMINSYR == 0 and general.S_NRMINPYR == 0 %}
+
+    {% elseif general.S_NRMINSYR != 0 %}
+
+    <li>and Completion of {{ general.S_NRMINSYR}} years of service</li>
+
+    {% elseif general.S_NRMINPYR != 0 %}
+
+    <li>and Completion of {{ general.S_NRMINPYR}} years of participation</li>
+    
+    {% endif  %}
+</ul></li>
+
+</ul>
+
+<div class="line-heading">
+Normal Retirement Benefit 
+</div>
+
+<ul class="line-items">
+<li>Upon normal retirement each participant will be entitled to the full value of his account.</li>
+</ul>
+
+<div class="line-heading">
+Death Benefit
+</div>
+
+<ul class="line-items">
+<li>The value of the participant's account.</li>
+</ul>
+
+<div class="line-heading">
+Termination Benefit 
+</div>
+
+<ul class="line-items">
+
+<li>A participant's account balance maintained from employee-derived contributions, and/or Safe Harbor contributions is 100% vested and nonforfeitable at all times.</li>
+
+
+
+{% if general._SNAME_2 == "SOURCE #2" and general._SNAME_3 == "SOURCE #3" %} {% else %}
+
+    <li>A participant shall be entitled to a portion of his account balance derived from Employer Contributions in accordance with the following vesting schedule:
+
+        {% if general.VESTING[general.S_VSSCHD_PPrimaryVestSch_] == "" %}
+        <ul><li><span style="background-color: red; color: white;">A definition for "{{general.S_VSSCHD_PPrimaryVestSch_}}" doesn't exist, please add it to your config.ini file</span></li></ul>
+        {% else %}
+        <ul><li>{{general.VESTING[general.S_VSSCHD_PPrimaryVestSch_]}}</li></ul>
+        {% endif %}
+        {# 
+        
+        THE FOLLOWING HAS BEEN COMMENTED OUT - The functionality is now in the config file.
+
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "RSG1100" %}
+    <ul><li>100% Immediate</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "BocaWest" %}
+    <ul><li>Year 1 - 20%, Year 2 - 40%,Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "Dufry" %}
+    <ul><li>Year 1 - 25%, Year 2 - 60%,Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "FL Visio" %}
+    <ul><li>Year 1 - 0%, Year 2 - 20%,Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "Fl Visio" %}
+    <ul><li>Year 1 - 0%, Year 2 - 20%,Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "Ignite M" %}
+    <ul><li>Year 1 - 33%, Year 2 - 66%, Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "PFG" %}
+    <ul><li>Year 1 - 30%, Year 2 - 60%, Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "pres" %}
+    <ul><li>Year 1 - 33%, Year 2 - 67%, Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "Beasley" %}
+    <ul><li>Year 1 - 0%, Year 2 - 20%,Year 3 - 40%, year 4 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "StoneMed" %}
+    <ul><li>Year 1 - 10%, Year 2 - 30%,Year 3 - 60%, year 4 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "SLPowers" %}
+    <ul><li>Year 1 - 0%, Year 2 - 20%, Year 3 - 50%, Year 4 - 60%, Year 5 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "Sonitrol" %}
+    <ul><li>Year 1 - 20%, Year 2 - 45%, Year 3 - 65%, Year 4 - 85%, Year 5 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "Hawks" %}
+    <ul><li>Year 1 - 0%, Year 2 - 25%, Year 3 - 50%, Year 4 - 75%, Year 5 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "1yrv1" %}
+    <ul><li>100% Immediate</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "2yrv1" %}
+    <ul><li>Year 1 - 0%, Year 2 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "3yrv1" %}
+    <ul><li>Year 1 - 33%, Year 2 - 67%, Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "3yrv2" %}
+    <ul><li>Year 1 - 0%, Year 2 - 0%,Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "3yrv3" %}
+    <ul><li>Year 1 - 0%, Year 2 - 50%,Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "3yrv4" %}
+    <ul><li>Year 1 - 25%, Year 2 - 50%,Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "3yrv5" %}
+    <ul><li>Year 1 - 33%, Year 2 - 66%, Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "3yrv6" %}
+    <ul><li>Year 1 - 33%, Year 2 - 66%, Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "3yrv7" %}
+    <ul><li>Year 1 - 33%, Year 2 - 67%, Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "3yrv8" %}
+    <ul><li>Year 1 - 33%, Year 2 - 67%, Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "3yrv9" %}
+    <ul><li>Year 1 - 0%, Year 2 - 0%,Year 3 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "4yrv1" %}
+    <ul><li>Year 1 - 25%, Year 2 - 50%,Year 3 - 75%, year 4 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "4yrv2" %}
+    <ul><li>Year 1 - 33%, Year 2 - 33%,Year 3 - 66%, year 4 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "4yrv3" %}
+    <ul><li>Year 1 - 0%, Year 2 - 50%,Year 3 - 75%, year 4 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "4yrv4" %}
+    <ul><li>Year 1 - 25%, Year 2 - 50%,Year 3 - 75%, year 4 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "4yrv5" %}
+    <ul><li>Year 1 - 0%, Year 2 - 33%,Year 3 - 66%, year 4 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "5yrv1" %}
+    <ul><li>Year 1 - 20%, Year 2 - 40%, Year 3 - 60%, Year 4 - 80%, Year 5 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "5yrv2" %}
+    <ul><li>Year 1 - 0%, Year 2 - 25%, Year 3 - 50%, Year 4 - 75%, Year 5 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "5yrv3" %}
+    <ul><li>Year 1 - 0%, Year 2 - 20%, Year 3 - 40%, Year 4 - 60%, Year 5 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "5yrv4" %}
+    <ul><li>Year 1 - 20%, Year 2 - 40%, Year 3 - 60%, Year 4 - 80%, Year 5 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "6yrv1" %}
+    <ul><li>Year 1 - 0%, Year 2 - 20%, Year 3 - 40%, Year 4 - 60%, Year 5 - 80%, Year 6 - 100%</li></ul>
+    {% endif %}
+    {% if general.S_VSSCHD_PPrimaryVestSch_ == "6yrv2" %}
+    <ul><li>Year 1 - 0%, Year 2 - 20%, Year 3 - 40%, Year 4 - 60%, Year 5 - 80%, Year 6 - 100%</li></ul>
+    {% endif %}
+    #}
+
+    </li>
+{% endif %}
+
+</ul>
+
+
+<div class="line-heading">
+Company Contribution
+</div>
+
+<ul class="line-items">
+<li>
+
+{# This year the company will contribute an amount equal to the following: #}
+
+{{ general.aslistString }}
+{#
+		{% if general.__ACTIVE_SEGMENTS['1'] == "Active" %}{{ general.__SEGMENTS['1'] }}{% endif %}{% if general.__ACTIVE_SEGMENTS['2'] == "Active" %}, {{ general.__SEGMENTS['2'] }}{% endif %}{% if general.__ACTIVE_SEGMENTS['3'] == "Active" %}, {{ general.__SEGMENTS['3'] }}{% endif %}{% if general.__ACTIVE_SEGMENTS['4'] == "Active" %}, {{ general.__SEGMENTS['4'] }}{% endif %}{% if general.__ACTIVE_SEGMENTS['5'] == "Active" %}, {{ general.__SEGMENTS['5'] }}{% endif %}{% if general.__ACTIVE_SEGMENTS['6'] == "Active" %}, {{ general.__SEGMENTS['6'] }}{% endif %}{% if general.__ACTIVE_SEGMENTS['7'] == "Active" %}, {{ general.__SEGMENTS['7'] }}{% endif %}
+
+        #}
+</li>
+</ul>
+
+<div class="line-heading">
+Contributions 
+</div>
+
+<ul class="line-items">
+
+    {% for contrib in general.d["Other Company Contributions"] %}
+
+    <li>{{contrib}}:<ul>
+        <li>
+
+		{% if contrib == "Safe Harbor Match Basic" %}
+            This year the company will contribute an amount equal to 100% of employee contributions up to 3%, plus 50% of employee contributions between 3% and 5%
+        {% endif %}
+		
+        {% if contrib == "Safe Harbor Match Enhanced" %}
+
+            {% if general.d["Safe harbor March Enhanced"] == "up to 4%" %}
+                This year the company will contribute an amount equal to 100% of employee contributions up to 4%
+            {% endif %}
+
+            {% if general.d["Safe harbor March Enhanced"] == "up to 6%" %}
+                This year the company will contribute an amount equal to 100% of employee contributions up to 6%
+            {% endif %}
+
+
+        {% endif %}
+		
+        {% if contrib == "Safe Harbor Non-Elective" %}
+            This year the company will contribute an amount equal to 3% of all participants' compensation
+        {% endif %}
+		
+        {% if contrib == "Employer Contribution New Comparability" %}
+            This year the contribution will be allocated in accordance with the contribution defined for each group
+            
+            {# {%  if general._ContribAlloc_2 == "8-Multiple Tiers (New Comparability)" %} #}
+<ul>
+
+        {% if general._Type8Option == "F-Formula" %}
+            {% if general.S_S2F8AMT1 != "" %}
+                <li>Group 1: ${{general.S_S2F8AMT1}}</li>
+            {% else %}
+                <li>Group 1: {{general.S_S2F8PCT1}}% of pay</li>
+            {% endif %}
+        {% else %}
+            <li>Group 1: the maximum contribution allowable under Code Section 415 </li>  
+        {% endif %}
+
+    {#
+        {% if general.d.contributions.0 is not empty %}
+            <li>{{ general.d.contributions.0.Contribution }}: {{general.S_S2F8PCT1}}% of pay</li>
+        {% endif %}
+    #}
+
+    {% if general.S_S2F8PCT2 != '0.00' %}
+        <li>Group 2: {{general.S_S2F8PCT2}}% of pay</li>
+    {% endif %}
+
+    {% if general.S_S2F8PCT3  != '0.00' %}
+        <li>Group 3: {{general.S_S2F8PCT3}}% of pay</li>
+    {% endif %}
+
+    {% if general.S_S2F8PCT4  != '0.00' %}
+        <li>Group 4: {{general.S_S2F8PCT4}}% of pay</li>
+    {% endif %}
+
+    {% if general.S_S2F8PCT5  != '0.00' %}
+        <li>Group 5: {{general.S_S2F8PCT5}}% of pay</li>
+    {% endif %}
+
+    {% if general.S_S2F8PCT6  != '0.00' %}
+        <li>Group 6: {{general.S_S2F8PCT6}}% of pay</li>
+    {% endif %}
+
+    {% if general.S_S2F8PCT7  != '0.00' %}
+        <li>Group 7: {{general.S_S2F8PCT7}}% of pay</li>
+    {% endif %}
+
+    {% if general.S_S2F8PCT8  != '0.00' %}
+        <li>Group 8: {{general.S_S2F8PCT8}}% of pay</li>
+    {% endif %}
+
+    {% if general.S_S2F8PCT9  != '0.00' %}
+        <li>Group 9: {{general.S_S2F8PCT9}}% of pay</li>
+    {% endif %}
+
+    {% if general.S_S2F8PCTA != '0.00'%}
+        <li>Group 10: {{general.S_S2F8PCTA}}% of pay</li>
+    {% endif %}
+
+</ul>
+
+{# {% endif %} #}
+
+
+
+        {% endif %}
+		
+        {% if contrib == "Employer Contribution Integrated" %}
+            This year the contribution will be allocated based on 4-tiered integration
+        {% endif %}
+		
+        {% if contrib == "Employer Contribution Pro Rata" %}
+            This year the contribution will be allocated evenly in proportion to compensation
+        {% endif %}
+
+        {% if contrib == "Employer Discretionary Match" %}
+        {{general.d["Match Formula"]}}
+        {% endif %}
+
+        {% if contrib == "Employee Deferral" %}
+	        Each year each participant will have the right to elect to defer a portion of his compensation which will then be contributed on his behalf to the plan.
+        {% endif %}
+
+
+
+
+        </li>
+    </ul>
+    
+    </li>
+    {% endfor %}
+
+
+{#
+
+<div class="line-heading">
+Company Contribution Allocation 
+</div>
+
+<ul class="line-items">
+<li>This year the contribution will be allocated in accordance with the contribution defined for each group.</li>
+</ul>
+
+<div class="line-heading">
+Other Company Allocations 
+</div>
+
+<ul class="line-items">
+<li>Safe Harbor Non-Elective Allocations:<ul>
+	<li>This year the contribution will be allocated evenly in proportion to compensation.</li></ul></li>
+</ul>
+#}
+
+
+</div>
