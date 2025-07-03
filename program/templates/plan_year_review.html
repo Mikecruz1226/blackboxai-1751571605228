@@ -1,0 +1,24 @@
+<h1>Plan Year Review</h1>
+
+<h2>Plan Audit Status</h2>
+
+<img style="width:110px; float: left; padding-right: 15px;" src="images/checkbox-icon.png">
+
+{# set employeecount = general.__ACTIVE_EMPLOYEES + general.__INACTIVE_EMPLOYEES + general.__INELIGIBLE_EMPLOYEES #} 
+{# set employeecount = general.__EMPLOYEES_COUNT #} 
+{% set employeecount = general.d["Plan Audit Participants"] %} 
+
+{% if employeecount > 100 %}
+
+{% set auditstatus = "need" %}
+
+{% else %}
+
+{% set auditstatus = "not need" %}
+
+{% endif %}
+
+
+<p style="padding-top: 20px; padding-bottom:24px;">Based upon the plan having {{ employeecount }} eligible participants as of {{ general.__AS_OF_DATE_BEGIN}}, the plan will {{ auditstatus }} to have an audit by an independent qualified public accountant. The Department of Labor requires that plans with 100 or more eligible participants as of the first day of the plan year have an auditor's opinion attached to their Form 5500.(exceptions may apply if your participant count is between 80-120)</p>
+
+
