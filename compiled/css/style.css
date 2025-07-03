@@ -1,0 +1,168 @@
+.page-break { display: block; page-break-before: always; padding-bottom: 10px; }
+
+.full-width {width: 100%;}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    background: white;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #e9ecef;
+    vertical-align: top;
+}
+
+th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+.td-right-align {
+    text-align: right;
+}
+
+.td-right-left {
+    text-align: left;
+}
+
+.not-full-width {
+	
+}
+
+
+@page {
+	size:landscape;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 40px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+}
+
+h1, h2, h3 {
+    font-family: "Open Sans", Arial, sans-serif;
+    font-weight: 300;
+    color: #2c3e50;
+    margin-top: 0;
+}
+
+h2 {
+    border-radius: 5px;
+    background-color: #007bff;
+    padding: 15px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+h4 {
+    font-size: 16px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin: 0px;
+    margin-top: 10px;
+    border-bottom: 1px solid green;
+}
+
+/*
+table{
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+*/
+
+hr {
+    border: 0;
+    height: 0;
+    border-top: 1px solid lightgray;
+}
+
+.compliance-header td{
+	font-family: "Open Sans";
+	font-weight: 300;
+	font-size: 21px;
+
+}
+
+.compliance-header {
+	padding-top: 40px;
+	padding-bottom: 15px;
+}
+
+.participation td{
+	border: 0px;
+	border-bottom: solid 1px green;
+	height: 25px;
+	padding: 3px; text-align: center;
+	vertical-align: middle;
+}
+
+#key-legend td {
+	vertical-align: middle;height: 25px; padding: 3px;
+
+}
+
+.td-right-align td {
+	text-align: right;
+}
+
+.td-right-left {
+	text-align: left;
+}
+
+#key-legend img{
+	width: 25px; 
+	padding-left: 40px; 
+	padding-right: 5px;
+}
+
+#employee-savings-plan td {
+	text-align: right;
+	border-bottom: solid 1px green;
+	height: 25px;
+}
+
+
+th {
+	text-align: center;
+	font-size: 13px;
+}
+
+.first-column {
+	padding-left: 4px;
+	text-align: left!important;
+}
+
+#summary-info li, .elig {
+	font-size: 22px;
+	font-family: "Open Sans";
+	font-weight: 300;
+}
+
+.compliance-section p {
+	padding: 5px;
+	padding-top: 5px;
+	font-size: 16px;
+}
+
+
