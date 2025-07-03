@@ -1,0 +1,85 @@
+<?php
+
+file_put_contents("dataOutput.json", $_REQUEST['data']);
+
+$main_dir = substr(__DIR__, 0, -11);
+
+$data = json_decode($_REQUEST['data'], 1);
+
+$clean_prep = str_replace(" ", "_", $data['Preparer']);
+
+$ini_file = $main_dir . 'preparers\\'. $clean_prep . '.ini';
+$ini_data = parse_ini_file($ini_file);
+
+$data = array_merge($ini_data, $data);
+
+$main_config_data = parse_ini_file($main_dir . 'config.ini', true);
+
+$file_location = $main_config_data["FILES_LOCATION"];
+$prefix = $data['Report File Prefix'];
+
+$file_name = $prefix."_PDFReport";
+$orig_prefix = $prefix;
+
+$prefix  = $file_location.$prefix;
+
+$data['files'][] = ["AccountFile" => "$prefix-account.txt", "CensusFile" => "$prefix-census.txt", "PlanSpec" => "$prefix-plan.txt"];
+
+
+include("..\code\parse-files.php");
+
+create_templates($file_name, $data);
+
+$finalReport = $prefix . "_FinalReport.pdf";
+
+$cmd = "del \"$file_location\\$file_name.pdf\"";
+$cmd2 = "del \"$finalReport\"";
+
+system($cmd);
+system($cmd2);
+
+#$cmd = "\"{$main_dir}program\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\" -s Letter -L 0 -T 10 -R 0 -O portrait --header-spacing 9 --dpi 300 --disable-smart-shrinking --header-html \"{$main_dir}program\\templates\\components\\header.html\" --footer-html \"{$main_dir}program\\templates\\components\\footer.html\"  \"{$main_dir}compiled\\reports.html\" \"{$file_location}\\{$file_name}.pdf\"";
+ 
+$cmd = "\"{$main_dir}program\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\" -s Letter -L 0 -T 10 -R 0 -O portrait --header-spacing 9 --dpi 300 --enable-smart-shrinking --header-html \"{$main_dir}program\\templates\\components\\header.html\" --footer-html \"{$main_dir}program\\templates\\components\\footer.html\"  \"{$main_dir}compiled\\reports.html\" \"{$file_location}\\{$file_name}.pdf\"";
+
+$data = system($cmd);
+
+sleep(2);
+
+$counter = 0;
+
+$w = ["B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+
+foreach (glob("{$file_location}\\{$orig_prefix}*.pdf") as $filename) {
+
+    if (!strpos($filename, "PDFReport")){
+        $pdf_array[$w[$counter]] = "{$w[$counter]}=\"$filename\"";
+        $counter++;
+    }
+}
+
+$pdfString = join(" ", $pdf_array);
+
+// pdftk A=in1.pdf B=in2.pdf cat A B output out1.pdf
+
+$pdfKeys = join(" ", array_keys($pdf_array));
+
+$myString = " A=\"{$file_location}\\{$orig_prefix}_PDFReport.pdf\" ";
+
+$cmd1 =  "\"{$main_dir}program\\PDFtk\\bin\\pdftk.exe\" " . $myString . $pdfString . " cat A " . $pdfKeys . " output \"{$file_location}\\{$orig_prefix}_FinalReport.pdf\"";
+echo $cmd1;
+
+file_put_contents('foo.txt', $cmd1);
+
+exec($cmd1);
+sleep(2);
+
+$finalReport =  "{$orig_prefix}_FinalReport.pdf";
+
+$cmd2 = "cd \"{$file_location}\" & start {$orig_prefix}_FinalReport.pdf";
+
+exec($cmd2);
+
+// echo $main_dir;
+
+// echo "{$file_location}{$finalReport}";
