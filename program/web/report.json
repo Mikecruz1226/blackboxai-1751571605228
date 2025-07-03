@@ -1,0 +1,37 @@
+{
+    "title": "Actuarial Systems Corporation Report Creator",
+    "properties": {
+        "Preparer": {
+            "note": "Enter your name. If a preparer configuration file exists, its settings will be applied.",
+            "type": "string",
+            "title": "Preparer Name"
+        },
+
+        "Plan Audit Participants": {
+            "type": "string",
+            "default": "",
+            "minimum": 1
+        },
+
+        "Other Company Contributions": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "type": "string",
+                "enum": ["Safe Harbor Match Basic","Safe Harbor Match Enhanced","Safe Harbor Non-Elective","Employer Contribution New Comparability","Employer Contribution Integrated","Employer Contribution Pro Rata","Employer Discretionary Match","Employee Deferral"]
+            }
+        },
+
+        "Safe harbor Match Enhanced": {
+            "note": "NOTE: having both of the following elements on one line is important to the structure of the app",
+            "type": "string",
+            "enum": ["","up to 4%","up to 5%","up to 6%"]
+        },
+
+        "Match Formula": {
+            "type": "string",
+            "default": "",
+            "minimum": 1
+        }
+    }
+}
