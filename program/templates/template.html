@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ASC Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .report-section {
+            margin-bottom: 30px;
+        }
+        .report-header {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    {% include "components/header.html" %}
+    
+    <div class="report-header">
+        <h1>Actuarial Systems Corporation Report</h1>
+        <p>Generated: {{ general.S_VALDATE }}</p>
+        <p>Preparer: {{ general.d.Preparer }}</p>
+    </div>
+
+    {% if employees %}
+    <div class="report-section">
+        <h2>Employee Data</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Entry Date</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                {% if not employee.DISCARD %}
+                <tr>
+                    <td>{{ employee.NAME }}</td>
+                    <td>{{ employee.PARTSTAT }}</td>
+                    <td>{{ employee.ENTRY }}</td>
+                    <td>${{ employee.__ENDVALUE_TOTAL|number_format(2) }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    {% if summarydata %}
+    <div class="report-section">
+        <h2>Summary Data</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in summarydata %}
+                <tr>
+                    <td>{{ item.key }}</td>
+                    <td>{{ item.year2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    {% include "components/footer.html" %}
+</body>
+</html>
