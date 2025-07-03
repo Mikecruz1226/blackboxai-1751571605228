@@ -1,0 +1,107 @@
+<h1>Top Heavy Report</h1>
+
+<h2>Top Heavy Summary</h2>
+
+For the Plan Year {{ general.__AS_OF_DATE_BEGIN }} to {{ general.__AS_OF_DATE }}
+<br><br>
+{% if general.__IS_TOP_HEAVY == false %}
+
+Great news! Because the top heavy ratio of {{ general.S_VLTHDPCK_PPctKeys_| number_format(2, '.', ',')}}% is less than or equal to 60%, this plan is not top heavy for the next plan year.
+
+{% else %}
+
+Because the top heavy ratio of {{ general.S_VLTHDPCK_PPctKeys_| number_format(2, '.', ',')}}% is greater than 60%, this plan is top heavy for the next plan year.
+
+{% endif %}
+
+<br><br>
+A plan is top-heavy if the account balances for Key Employees exceed 60% of the total account balances of all participants on the last day of the preceding plan year. Plans that are determined to be top-heavy must provide minimum contributions to all non-key employees who were employed on the last day of the plan year. The contribution must be either equal to the deferral rate of the highest Key Employee's contribution or 3% of compensation, whichever is less. If the Key(s) did not defer, no minimum contribution is required, regardless if the plan is considered Top Heavy. Safe harbor plans meeting certain conditions are granted non-top-heavy status regardless of the Key Employees' total account balance relative to the total plan account balance.
+
+
+<br />
+<br />
+
+Testing result detail can be found on the Top Heavy Illustration Report located in the a Compliance Results section of this Valuation Report.
+
+
+<h2>Key Employee Information</h2>
+
+<br />
+Key Employee: is defined as an employee, who is at any time during the plan year containing the Determination Date:
+<ul>
+    <li>Is a "Greater than 5% owner" of the company at any time during the current or prior year, and their children, parents or Spouses (not included are siblings, grandparents and in-laws), or</li>
+    <li>Is a "Greater than 1% Owner" of the company whose annual compensation exceeds $150,000.00, their children, parents or spouse (not included are siblings, grandparents and in-laws), or</li>
+    <li>Is an Officer of the company whose annual compensation exceeds $180,000.00</li>
+</ul>
+<br />
+
+{#
+
+<table class="full-width participation" cellpadding=0 cellspacing=0>
+
+	<tr><th>Balances</th><th>Key Employee Balances</th><th>All Employees</th><th>Percent / Key Employee</th></tr>
+	
+	{% if general.__ACTIVE_SEGMENTS['1'] == "Active" %}
+	<tr><td style="text-align: left;">{{ general.__SEGMENTS['1'] }}</td><td>${{general.__KEY_BALANCES_1 | number_format(2, '.', ',')}}</td><td>${{ general.__ALL_BALANCES_1 | number_format(2, '.', ',') }}</td><td>{{ (general.__KEY_BALANCES_1 / general.__ALL_BALANCES_1 * 100)| number_format(2, '.', ',')}}%</td></tr>
+	{% endif %}	
+	
+	
+	{% if general.__ACTIVE_SEGMENTS['2'] == "Active" %}
+		<tr><td style="text-align: left;">{{ general.__SEGMENTS['2'] }}</td><td>${{ general.__KEY_BALANCES_2 | number_format(2, '.', ',') }}</td><td>${{ general.__ALL_BALANCES_2 | number_format(2, '.', ',') }}</td><td>{{ (general.__KEY_BALANCES_2 / general.__ALL_BALANCES_2 * 100)| number_format(2, '.', ',')}}%</td></tr>
+	{% endif %}	
+	
+	
+	{% if general.__ACTIVE_SEGMENTS['3'] == "Active" %}
+		<tr><td style="text-align: left;">{{ general.__SEGMENTS['3'] }}</td><td>${{ general.__KEY_BALANCES_3 | number_format(2, '.', ',') }}</td><td>${{ general.__ALL_BALANCES_3 | number_format(2, '.', ',') }}</td><td>{{ (general.__KEY_BALANCES_3 / general.__ALL_BALANCES_3 * 100)| number_format(2, '.', ',')  }}%</td></tr>
+	{% endif %}	
+	
+	
+	{% if general.__ACTIVE_SEGMENTS['4'] == "Active" %}
+		<tr><td style="text-align: left;">{{ general.__SEGMENTS['4'] }}</td><td>${{ general.__KEY_BALANCES_4 | number_format(2, '.', ',') }}</td><td>${{ general.__ALL_BALANCES_4 | number_format(2, '.', ',') }}</td><td>{{ (general.__KEY_BALANCES_4 / general.__ALL_BALANCES_4 * 100 )| number_format(2, '.', ',')  }}%</td></tr>
+	{% endif %}	
+	
+	
+	{% if general.__ACTIVE_SEGMENTS['5'] == "Active" %}
+		<tr><td style="text-align: left;">{{ general.__SEGMENTS['5'] }}</td><td>${{ general.__KEY_BALANCES_5 | number_format(2, '.', ',') }}</td><td>${{ general.__ALL_BALANCES_5 | number_format(2, '.', ',') }}</td><td>{{ (general.__KEY_BALANCES_5 / general.__ALL_BALANCES_5 * 100 )| number_format(2, '.', ',')  }}%</td></tr>
+	{% endif %}	
+	
+	
+	{% if general.__ACTIVE_SEGMENTS['6'] == "Active" %}
+		<tr><td style="text-align: left;">{{ general.__SEGMENTS['6'] }}</td><td>${{ general.__KEY_BALANCES_6 | number_format(2, '.', ',') }}</td><td>${{ general.__ALL_BALANCES_6 | number_format(2, '.', ',') }}</td><td>{{ (general.__KEY_BALANCES_6 / general.__ALL_BALANCES_6 *100 )| number_format(2, '.', ',')  }}%</td></tr>
+	{% endif %}	
+	
+	<tr><td style="text-align: left;"><strong>TOTALS</strong></td><td>${{ general.__KEY_BALANCES | number_format(2, '.', ',') }}</td><td>${{ general.__ALL_BALANCES | number_format(2, '.', ',') }}</td><td>{{ (general.__KEY_BALANCES / general.__ALL_BALANCES * 100)| number_format(2, '.', ',')  }}%</td></tr>
+
+</table>
+#}
+
+<h2>Employees Defined as "Key" for Top Heavy Testing Purposes</h2>
+<table class="full-width participation" cellpadding=0 cellspacing=0>
+	<tr>
+		<th><u><b>SSN</b></u></th>
+		<th><u><b>Employee Name</b></u></th>
+		<th>Date of<br><u><b>Birth</b></u></th>
+		<th>Date of<br><u><b>Employment</b></u></th>
+		<th>Date of<br><u><b>Termination</b></u></th>
+		<th>Total<br><u><b>Compensation</b></u></th>
+		<th>Plan<br><u><b>Contribution</b></u></th>
+		<th>Plan<br><u><b>Hours</b></u></th>
+	</tr>
+
+{% for employee in employees %}
+{% if employee._KEYELIG == 1 %}
+
+	<tr style="border-bottom: 1px solid black;">
+		<td>{{ employee.SSNUM | ssnmask}}</td>
+		<td class="first-column">{{ employee.NAME }}</td>
+		<td>{{ employee.BIRTH }}</td>
+		<td>{{ employee.HIRE }}</td>
+		<td>{{ employee.TERMIN }}</td>
+		<td>{{ employee.COMP | number_format(2, '.', ',') }}</td>
+		<td>{{ employee.__CTBVALUE_TOTAL  | number_format(2, '.', ',')}}</td>
+		<td>{{ employee.HOURS }}</td>
+	</tr>
+
+{% endif %}
+{% endfor %}
+</table>
