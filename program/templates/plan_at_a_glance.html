@@ -1,0 +1,179 @@
+<h2>Plan At-a-Glance</h2>
+
+<p>Knowing the age of your employee population is a helpful tool in identifying their retirement plan needs. An older population of employees might indicate that assets will be leaving the plan over the coming years, while a younger population might be inclined to save more in their earning years. <b>Your average employee's age is {{general.__AVERAGE_AGE  | number_format(1, '.', ',')}}</b>.</p>
+
+<p><b>Your Plan's Participation Rate at {{general.S_VALDATE}} is {{ general.S_VLDEFPRT_PDef_Part_Rate_ }}%.</b> The participation rate is defined as the total number of employees deferring into the plan divided by the total number of active eligible employees.</p>
+
+<table  width="100%" class="full-width participation compliance-section"  cellpadding=0 cellspacing=0>
+	<tr><th style="text-align: left;">Number of:</th><th>Total</th><th>20's</th><th>30's</th><th>40's</th><th>50's</th><th>60+</th></tr>
+	<tr><td style="text-align: left;">Active Eligible Employees</td><td> {{ general.__AGES_ELIG_TOTAL | default('0')  }} </td>
+					      <td>{{ general.__AGES_ELIG_20s | default('0')  }}</td>
+					      <td>{{ general.__AGES_ELIG_30s | default('0')  }}</td>
+					      <td>{{ general.__AGES_ELIG_40s | default('0')  }}</td>
+					      <td>{{ general.__AGES_ELIG_50s | default('0')  }}</td>
+					      <td>{{ general.__AGES_ELIG_60s | default('0') }}</td></tr>
+
+	<tr><td style="text-align: left;">Active Employees Deferring into Plan</td><td> {{ general.__AGES_DEFER_TOTAL  }} </td>
+					      <td>{{ general.__AGES_DEFER_20s | default('0')  }}</td>
+					      <td>{{ general.__AGES_DEFER_30s | default('0')  }}</td>
+					      <td>{{ general.__AGES_DEFER_40s | default('0')  }}</td>
+					      <td>{{ general.__AGES_DEFER_50s | default('0')  }}</td>
+					      <td>{{ general.__AGES_DEFER_60s | default('0')  }}</td></tr>
+
+	<tr><td style="text-align: left;">Percent of Employees Deferring</td><td> {{ general.__AGES_PERCENT_DEFER_TOTAL| number_format(0, '.', ',') }}% </td>
+					      <td>{{ general.__AGES_PERCENT_DEFER_20s | number_format(0, '.', ',') }}%</td>
+					      <td>{{ general.__AGES_PERCENT_DEFER_30s | number_format(0, '.', ',') }}%</td>
+					      <td>{{ general.__AGES_PERCENT_DEFER_40s | number_format(0, '.', ',') }}%</td>
+					      <td>{{ general.__AGES_PERCENT_DEFER_50s | number_format(0, '.', ',') }}%</td>
+					      <td>{{ general.__AGES_PERCENT_DEFER_60s | number_format(0, '.', ',') }}%</td></tr>
+
+	<tr><td style="text-align: left;">Active Employees with a balance</td><td> {{ general.__AGES_ACTIVE_BALANCE_TOTAL }} </td>
+					      <td>{{ general.__AGES_ACTIVE_BALANCE_20s | default('0')  }}</td>
+					      <td>{{ general.__AGES_ACTIVE_BALANCE_30s | default('0')  }}</td>
+					      <td>{{ general.__AGES_ACTIVE_BALANCE_40s | default('0')  }}</td>
+					      <td>{{ general.__AGES_ACTIVE_BALANCE_50s | default('0')  }}</td>
+					      <td>{{ general.__AGES_ACTIVE_BALANCE_60s | default('0')  }}</td></tr>
+
+	<tr><td style="text-align: left;">Terminated Employees with a balance</td><td> {{ general.__AGES_INACTIVE_BALANCE_TOTAL }} </td>
+					      <td>{{ general.__AGES_INACTIVE_BALANCE_20s | default('0') }}</td>
+					      <td>{{ general.__AGES_INACTIVE_BALANCE_30s | default('0')  }}</td>
+					      <td>{{ general.__AGES_INACTIVE_BALANCE_40s | default('0')  }}</td>
+					      <td>{{ general.__AGES_INACTIVE_BALANCE_50s | default('0')  }}</td>
+					      <td>{{ general.__AGES_INACTIVE_BALANCE_60s | default('0')  }}</td></tr>
+
+</table>
+
+<h2>Regulatory Limits</h2>
+
+<table width="100%" cellpadding=0 cellspacing=0>
+	<tr>
+		<td width="100%" valign="top">
+			{#
+			<h4>Initial Eligibility Requirements:</h4>
+			<table class="full-width">
+				<tr><td>Age</td><td>xxx</td></tr>
+				<tr><td>Entry Date</td><td>xxx</td></tr>
+				<tr><td>Service Required</td><td>xxx</td></tr>
+			</table>
+		       	#}
+
+			<h4>Calendar Year Regulatory Limits:</h4>
+			<table class="full-width td-right-align participation">
+
+				{% set summarycounter = 1 %}
+				{% for kkk, summary in general.__LIMITS%}
+					{% if summarycounter == 1 %}
+    					<tr>
+
+				        {% set rcounter = 1 %}
+                            {% for k,row in summary %}
+                                {% if rcounter == 1 %}
+							        <th>&nbsp;</th>
+                                    {% set rcounter = 2 %}
+                                {% else %}
+							        <th>{{k}}</th>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+						{% set summarycounter = 2 %}
+					{% endif %}
+						<tr>
+                            {% set rscounter = 1 %}
+                            {% for row in summary %}
+							<td 
+                                {% if rscounter == 1 %}
+                                style="text-align: left;"
+                                {% set rscounter = 2 %}
+                                {% endif %}
+                                >{{row}}</td>
+                            {% endfor %}
+                        </tr>
+				{% endfor %}
+
+			</table>
+
+
+            {#
+			<table class="full-width td-right-align participation">
+
+				{% set summarycounter = 1 %}
+				{% for kkk, summary in general.d.limits%}
+					{% if summarycounter == 1 %}
+    					<tr>
+
+				        {% set rcounter = 1 %}
+                            {% for k,row in summary %}
+                                {% if rcounter == 1 %}
+							        <th>&nbsp;</th>
+                                    {% set rcounter = 2 %}
+                                {% else %}
+							        <th>{{k}}</th>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+						{% set summarycounter = 2 %}
+					{% endif %}
+						<tr>
+                            {% set rscounter = 1 %}
+                            {% for row in summary %}
+							<td 
+                                {% if rscounter == 1 %}
+                                style="text-align: left;"
+                                {% set rscounter = 2 %}
+                                {% endif %}
+                                >{{row}}</td>
+                            {% endfor %}
+                        </tr>
+				{% endfor %}
+
+			</table>
+            #}
+		</td>
+	</tr>
+</table>
+
+
+<h2>Indicator Legend</h2>
+
+Please review the enclosed deposit summary. Employees who fall into any of these categories are indicated with the symbol below.
+<br><br>
+<table width="100%">
+
+	<tr>
+		<td align="center">
+			<img src="images/unlock-icon.png" height="55"><br>
+			<b>Key Employee</b><br>
+
+			Employees who were identified as greater than 5% owner, (1% owner making $150,000) or an Officer making at least ${{ general.OFFICER_COMPENSATION | number_format(2, '.', ',')}} in {{ general.YEAR }}.
+
+<br>
+
+<div class="elig">Keys: {{ general.__KEYELIG }}</div>
+		</td>
+		<td align="center">
+			<img src="images/dollar-coin-icon.png" height="55"><br>
+			
+			<b>Highly Compensated</b><br>
+
+			Greater than 5% owners and certain members of their family, and employees who earned over ${{ general.HCE_COMPENSATION | number_format(2, '.', ',') }} through 12/31/2019. These employees may be considered "HCE" for the next plan year.
+<br>
+<div class="elig">HCEs:  {{ general.__HCEELIG }}</div>
+		</td>
+		<td align="center">
+			<img src="images/diamond-icon.png" height="55"><br>
+		
+			<b>70 &frac12;</b><br>
+Employees who have reached age 70½ and may need to take a required minimum distribution before year-end.
+<br>
+<div class="elig">70 &frac12;:  {{ general.__AGE70HALF }}</div>
+		</td>
+		<td align="center">
+			<img src="images/timer-icon.png" height="55"><br>
+		
+			<b>Catch-up eligible</b><br>
+			Employees who reach age 50 may be to eligible to defer ${{general.CATCH_UP | number_format(2, '.', ',')}} over the deferral limit in Catch-up. (List includes approaching age 50)
+<br>
+<div class="elig">Catch-Up Eligible:  {{ general.__AGE50HALF }}</div>
+		</td>
+	</tr>
+</table>
