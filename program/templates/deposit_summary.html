@@ -1,0 +1,151 @@
+<h2>Deposit Summary</h2>
+
+<table id="employee-savings-plan" class="full-width"  cellspacing=0>
+    <thead>
+    <tr>
+		<th><u><b>Participant Name</b></u></th>
+		<th><u><b>Compensation</b></u></th>
+        {# <th><u><b>Hours</b></u></th> #}
+		{% for key, segment in general.__NAMED_SEGMENTS %}
+        <th><u><b>{{key}}</b></u></th>
+		{% endfor%}
+		<th colspan=4 style="background-color: red; color: white;"></th>
+
+	</tr>
+</thead>
+<tbody>
+ 
+        {%  set TOTALDEPOSIT_1 = 0 %} 
+        {%  set TOTALDEPOSIT_2 = 0 %} 
+        {%  set TOTALDEPOSIT_3 = 0 %} 
+        {%  set TOTALDEPOSIT_4 = 0 %} 
+        {%  set TOTALDEPOSIT_5 = 0 %} 
+        {%  set TOTALDEPOSIT_6 = 0 %} 
+        {%  set TOTALDEPOSIT_7 = 0 %} 
+        {%  set TOTALDEPOSIT_8 = 0 %} 
+        {%  set TOTALDEPOSIT_9 = 0 %} 
+        {%  set TOTALDEPOSIT_10 = 0 %} 
+       
+        {%  set TOTALDEPOSIT_COMP = 0 %} 
+
+
+    {% for employee in employees %}
+	
+    {% if employee.DISCARD != "1" %}
+
+    {%  set TOTALDEPOSIT_COMP = employee.CLCOMP + TOTALDEPOSIT_COMP %}
+
+	<tr>
+       
+        <td class="first-column">{{ employee.NAME }}</td>
+		<td style="padding-right: 10px;">${{ employee.CLCOMP|number_format(2, '.', ',') }}</td>
+        {#	<td style="padding-right: 10px;">{{ employee.HOURS }}</td> #}
+		{% for segment in general.__NAMED_SEGMENTS %}
+
+
+        {% if segment == 1 %}
+            {%  set data = employee.CURRCNTB_1 %}
+            {%  set TOTALDEPOSIT_1 = data + TOTALDEPOSIT_1%}
+        {% elseif segment == 2 %}
+            {%  set data = employee.CURRCNTB_2 + employee.CURRCNTB_3 + employee.CURRCNTB_4 %}
+            {%  set TOTALDEPOSIT_2 = data + TOTALDEPOSIT_2%}
+        {% elseif segment == 3 %}
+            {%  set data = employee.CURRCNTB_5 %}
+            {%  set TOTALDEPOSIT_3 = data + TOTALDEPOSIT_3%}
+        {% elseif segment == 4 %}
+            {%  set data = employee.CURRCNTB_6 %}
+            {%  set TOTALDEPOSIT_4 = data + TOTALDEPOSIT_4%}
+        {% elseif segment == 5 %}
+            {%  set data = employee.CURRCNTB_7 %}
+            {%  set TOTALDEPOSIT_5 = data + TOTALDEPOSIT_5%}
+        {% elseif segment == 6 %}
+            {%  set data = employee.CURRCNTB_8 %}
+            {%  set TOTALDEPOSIT_6 = data + TOTALDEPOSIT_6%}
+        {% elseif segment == 7 %}
+            {%  set data = employee.CURRCNTB_9 %}
+            {%  set TOTALDEPOSIT_7 = data + TOTALDEPOSIT_7%}
+        {% elseif segment == 8 %}
+            {%  set data = employee.CURRCNTB_10 %}
+            {%  set TOTALDEPOSIT_8 = data + TOTALDEPOSIT_8%}
+        {% elseif segment == 9 %}
+            {%  set data = employee.CURRCNTB_11 %}
+            {%  set TOTALDEPOSIT_9 = data + TOTALDEPOSIT_9%}
+        {% elseif segment == 10 %}
+            {%  set data = employee.CURRCNTB_12 %}
+            {%  set TOTALDEPOSIT_10 = data + TOTALDEPOSIT_10%}
+        {% endif %}
+
+        {% set piece = "_CTBVALUE_" ~ segment ~ "_0_" %}
+        {# {% set piece = "CURRCNTB_" ~ segment %} #}
+
+        {# <td style="padding-right: 10px;">${{ attribute(employee, piece)| number_format(2, '.', ',') }}</td> #}
+        <td style="padding-right: 10px;">${{ data| number_format(2, '.', ',') }}</td>
+		{% endfor%}
+
+
+		<td style="border-left: 1px solid red; padding: 3px; text-align: center;">{% if employee._KEYELIG == 1 %} <img src="images/unlock-icon.png" width="25">{% endif %}</td>
+		<td style="padding: 3px; text-align: center;">{% if employee._HCEELIG == 1 %}<img src="images/dollar-coin-icon.png" width="25">{% endif %}</td>
+		<td style="padding: 3px; text-align: center;">{% if employee._AGE70HALF == 1 %}<img src="images/diamond-icon.png" width="25">{% endif %}</td>
+        {#<td style="border-right: 1px solid red; padding: 3px; text-align: center;">{% if (employee._AGE50HALF == 1 or employee._AGELAST > 49 ) %}<img src="images/timer-icon.png" width="25">{% endif %}</td>#}
+
+        <td style="border-right: 1px solid red; padding: 3px; text-align: center;">{% if (employee._AGE50HALF == 1 or employee._AGENEAREST > 49 ) %}<img src="images/timer-icon.png" width="25">{% endif %}</td>
+
+	</tr>
+    {% endif %}
+   {% endfor %}
+
+   <tr>
+		<td class="first-column">TOTAL</td>
+		<td style="padding-right: 10px;">${{ TOTALDEPOSIT_COMP|number_format(2, '.', ',') }}</td>
+        {#  <td style="padding-right: 10px;">-</td> #}
+
+
+		{% for segment in general.__NAMED_SEGMENTS %}
+
+        {% if segment == 1 %}
+        <td style="padding-right: 10px;"> ${{ TOTALDEPOSIT_1| number_format(2, '.', ',') }}</td>
+        {% elseif segment == 2 %}
+        <td style="padding-right: 10px;"> ${{ TOTALDEPOSIT_2| number_format(2, '.', ',') }}</td>
+        {% elseif segment == 3 %}
+        <td style="padding-right: 10px;"> ${{ TOTALDEPOSIT_3| number_format(2, '.', ',') }}</td>
+        {% elseif segment == 4 %}
+        <td style="padding-right: 10px;"> ${{ TOTALDEPOSIT_4| number_format(2, '.', ',') }}</td>
+        {% elseif segment == 5 %}
+        <td style="padding-right: 10px;"> ${{ TOTALDEPOSIT_5| number_format(2, '.', ',') }}</td>
+        {% elseif segment == 6 %}
+        <td style="padding-right: 10px;"> ${{ TOTALDEPOSIT_6| number_format(2, '.', ',') }}</td>
+        {% elseif segment == 7 %}
+        <td style="padding-right: 10px;"> ${{ TOTALDEPOSIT_7| number_format(2, '.', ',') }}</td>
+        {% elseif segment == 8 %}
+        <td style="padding-right: 10px;"> ${{ TOTALDEPOSIT_8| number_format(2, '.', ',') }}</td>
+        {% elseif segment == 9 %}
+        <td style="padding-right: 10px;"> ${{ TOTALDEPOSIT_9| number_format(2, '.', ',') }}</td>
+        {% elseif segment == 10 %}
+        <td style="padding-right: 10px;"> ${{ TOTALDEPOSIT_10| number_format(2, '.', ',') }}</td>
+        {% endif %}
+
+		{% endfor%}
+
+
+		<td style="border-left: 1px solid red; padding: 3px; text-align: center;">{% if employee._KEYELIG == 1 %} <img src="images/unlock-icon.png" width="25">{% endif %}</td>
+		<td style="padding: 3px; text-align: center;">{% if employee._HCEELIG == 1 %}<img src="images/dollar-coin-icon.png" width="25">{% endif %}</td>
+		<td style="padding: 3px; text-align: center;">{% if employee._AGE70HALF == 1 %}<img src="images/diamond-icon.png" width="25">{% endif %}</td>
+        {# <td style="border-right: 1px solid red; padding: 3px; text-align: center;">{% if (employee._AGE50HALF == 1 or employee._AGELAST > 49 ) %}<img src="images/timer-icon.png" width="25">{% endif %}</td> #}
+        <td style="border-right: 1px solid red; padding: 3px; text-align: center;">{% if (employee._AGE50HALF == 1 or employee._AGENEAREST > 49 ) %}<img src="images/timer-icon.png" width="25">{% endif %}{{employee._AGENEAREST}}</td>
+
+
+
+   </tr>
+
+   </tbody>
+</table>
+
+<table id="key-legend" cellspacing=0>
+	<tr>
+			<td><b>Legend: </b></td> 
+			<td><img src="images/unlock-icon.png"></td><td>Key</td>
+			<td><img src="images/dollar-coin-icon.png"></td><td>HCE</td>
+			<td><img src="images/timer-icon.png"></td><td>Catch-up Eligible</td>
+			<td><img src="images/diamond-icon.png"></td><td>70 &frac12;</td>
+	</tr>
+</table>
