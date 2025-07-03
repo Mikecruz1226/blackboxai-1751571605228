@@ -1,0 +1,43 @@
+{
+	"properties": {
+
+        "Preparer": {
+            "note": "NOTE: having both of the following elements on one line is important to the structure of the app",
+            "type": "string","enum": ["Andrew Le","April Teshima","Barbara Clancy","Bob Bostian","Charlene Trudeau","Debbie Soucy","Donna Currier","Donny Sandberg","Duke Potter","Julie Goodwin","Kathryn Kildahl","Kathy Robertson","Kelly Burnett","Kristen Dinan","Kyle Kohuth","Lisa Gilbertson","Melanie Williamson","Michelle Lenihan","Mike Baduria","Mikolleen Patterson","Nancy Frost","Robin Dumas","Sharon Broschart","Shauna McClelland","Susan Macy"]
+        },
+        
+		"Report File Prefix": {
+			"type": "string",
+			"default": "",
+			"minimum": 1
+		},
+
+    	"Plan Audit Participants": {
+			"type": "string",
+			"default": "",
+			"minimum": 1
+		},
+
+     
+        "Other Company Contributions": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "type": "string",
+                "enum": ["Safe Harbor Match Basic","Safe Harbor Match Enhanced","Safe Harbor Non-Elective","Employer Contribution New Comparability","Employer Contribution Integrated","Employer Contribution Pro Rata","Employer Discretionary Match","Employee Deferral"]
+                }
+        },
+
+        "Safe harbor March Enhanced": {
+            "note": "NOTE: having both of the following elements on one line is important to the structure of the app",
+            "type": "string","enum": ["","up to 4%","up to 5%","up to 6%"]
+        },
+
+
+        "Match Formula": {
+			"type": "string",
+			"default": "",
+			"minimum": 1
+		}
+    }
+}
