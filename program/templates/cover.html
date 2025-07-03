@@ -1,0 +1,66 @@
+<style>
+
+/*
+body{
+	background: url(images/bg.jpg);
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-repeat: no-repeat;
+}
+*/
+
+.line-heading {
+	float: left;
+	font-weight: bold;
+	display: inline;
+	width: 300px;
+
+}
+
+.line-items{
+	margin-left: 310px;
+}
+
+.page-header {
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+</style>
+
+<div style="margin-top: 180px;">
+	<h1>{{ general.S_PLANNAME }}</h1>
+	<h1>{{ general.S_PLANNAM2 }}</h1>
+	<h3>Plan Year Ended {{ general.__AS_OF_DATE_LONG }}</h3>
+
+<div style="margin-top: 100px;font-size: 15px;">
+<h2>Contents</h2>
+<div id="summary-info">
+<ul>
+	<li>Summary of Major Plan Provisions</li>
+    <li>Plan Year Review
+	<ul>
+		<li>Plan Audit Status
+		<li>Compliance Results
+	</ul></li>
+<li>Top Heavy Report</li>
+	<ul>
+		<li>Top Heavy Summary
+		<li>Key Employee Infomation
+		<li>Employees Defined as (Key) for Top Heavy Testing Purposes 
+	</ul></li>
+<li>Plan at a Glance</li>
+<li>Regulatory Limits</li>
+<li>Indicator Legend</li>
+<li>Deposit Summary</li>
+<li>Participant Census</li>
+<li>Investment Summary</li>
+<li>Compliance Tests</li>
+<div style="margin-top: 55px;">
+    Prepared By: {{ general["d"]["Prepared By"] }}<br />
+    866-497-5501 X {{ general["d"]["Phone Number"] }}<br />
+    {{ general["d"]["Email"] }}<br />
+</div>
+</div>
+</div>
