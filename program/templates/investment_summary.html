@@ -1,0 +1,435 @@
+<h2>Investment Summary</h2>
+
+<table class="full-width"  cellspacing=0>
+    <thead>
+	<tr>
+		<th>Participant Name<br>SS Number<br><u><b>Fund/Source</b></u></th>
+		<th>{{ general.__AS_OF_DATE_BEGIN }} <br><u><b>Balance</b></u></th>
+		<th><u><b>Contrib.</b></u></th>
+		<th><u><b>Forfeit.</b></u></th>
+		<th><u><b>Earnings</b></u></th>
+		<th><u><b>Transfers</b></u></th>
+		<th><u><b>Withdrawls</b></u></th>
+		<th>{{ general.__AS_OF_DATE }} <br><u><b>Balance</b></u></th>
+		<th>Vst<br><u><b>Pct</b></u></th>
+		<th>Vested<br><u><b>Amount</b></u></th>
+	</tr>
+    </thead>
+
+
+{% set counter = 1 %}
+{% for employee in employees %}
+{% if employee.__DONT_SHOW == 0 %}
+	<tr style = 'page-break-before: always; page-break-after:avoid;'>
+		<td class="first-column">
+			<h3 style="margin-bottom:0px; padding-bottom: 0px;">{{ employee.NAME }}</h3> 			
+
+		</td>
+		<td colspan="9" style="text-align: right;"><!--<h3>{{employee.SSNUM | ssnmask}}</h3>--></td>
+	</tr>	
+
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">
+            <b>Total</b>
+		</td>
+        <td style="text-align: right;"><b>{{ employee.__BEGVALUE_TOTAL  | number_format(2, '.', ',')}}</b></td>
+		<td style="text-align: right;"><b>{{ employee.__CTBVALUE_TOTAL  | number_format(2, '.', ',')}}</b></td>
+		<td style="text-align: right;"><b>{{ employee.__FRFVALUE_TOTAL  | number_format(2, '.', ',')}}</b></td>
+		<td style="text-align: right;"><b>{{ employee.__EXPINTVALUE_TOTAL  | number_format(2, '.', ',')}}</b></td>
+        <td style="text-align: right;"><b>{{ employee.__TFIOVALUE_TOTAL | number_format(2, '.', ',')}}</b></td>
+		<td style="text-align: right;"><b>{{ employee.__WDWVALUE_TOTAL  | number_format(2, '.', ',')}}</b></td>
+		<td style="text-align: right;"><b>{{ employee.__ENDVALUE_TOTAL  | number_format(2, '.', ',')}}</b></td>
+		<td>&nbsp;</td>
+		<td style="text-align: right;"><b>{{ employee.__ADDED_ENDVALUE_TOTAL  | number_format(2, '.', ',')}}</b></td>
+
+	</tr>
+
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">
+			<b><u>Allocation by Source</u></b>
+		</td>
+		<td colspan="9">&nbsp;</td>
+	</tr>
+
+
+
+	{% if general.__ACTIVE_SEGMENTS['1'] == "Active" and employee.__1_HAS_VALUE %}
+	<tr style="background-color:#e3f5fc">
+		<td class="first-column">{{ general.__SEGMENTS['1'] }}</td>
+		<td style="text-align: right;">{{ employee._BEGVALUE_1_0_  | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee.__CTBVALUE_1_0_  | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._FRFVALUE_1_0_  | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._EXPINTVALUE_1_0_  | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._TFIOVALUE_1_0_  | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._WDWVALUE_1_0_  | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._ENDVALUE_1_0_  | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">{{employee.VESTPCT_1|round()}}%</td>
+		<td style="text-align: right;">{{ employee.__ENDVALUE_1_0_  | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+	{% if general.__ACTIVE_SEGMENTS['2'] == "Active" and employee.__2_HAS_VALUE %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['2'] }}</td>
+		<td style="text-align: right;">{{ employee._BEGVALUE_2_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee.__CTBVALUE_2_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._FRFVALUE_2_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._EXPINTVALUE_2_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._TFIOVALUE_2_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._WDWVALUE_2_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._ENDVALUE_2_0_ | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">{{employee.VESTPCT_2|round()}}%</td>
+		<td style="text-align: right;">{{ employee.__ENDVALUE_2_0_ | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+
+	{% if general.__ACTIVE_SEGMENTS['3'] == "Active"  and employee.__3_HAS_VALUE  %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['3'] }}</td>
+		<td style="text-align: right;">{{ employee._BEGVALUE_3_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee.__CTBVALUE_3_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._FRFVALUE_3_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._EXPINTVALUE_3_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._TFIOVALUE_3_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._WDWVALUE_3_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._ENDVALUE_3_0_ | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">{{employee.VESTPCT_3|round()}}%</td>
+		<td style="text-align: right;">{{ employee.__ENDVALUE_3_0_ | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+	{% if general.__ACTIVE_SEGMENTS['4'] == "Active"  and employee.__4_HAS_VALUE %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['4'] }}</td>
+		<td style="text-align: right;">{{ employee._BEGVALUE_4_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee.__CTBVALUE_4_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._FRFVALUE_4_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._EXPINTVALUE_4_0_ | number_format(2, '.', ',')}}</td>
+        <td style="text-align: right;">{{ employee._TFIOVALUE_4_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._WDWVALUE_4_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._ENDVALUE_4_0_ | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">{{employee.VESTPCT_4|round()}}%</td>
+		<td style="text-align: right;">{{ employee.__ENDVALUE_4_0_ | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+
+	{% if general.__ACTIVE_SEGMENTS['5'] == "Active"  and employee.__5_HAS_VALUE %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['5'] }}</td>
+		<td style="text-align: right;">{{ employee._BEGVALUE_5_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee.__CTBVALUE_5_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._FRFVALUE_5_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._EXPINTVALUE_5_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._TFIOVALUE_5_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._WDWVALUE_5_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._ENDVALUE_5_0_ | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">{{employee.VESTPCT_5|round()}}%</td>
+		<td style="text-align: right;">{{ employee.__ENDVALUE_5_0_ | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+
+	{% if general.__ACTIVE_SEGMENTS['6'] == "Active"  and employee.__6_HAS_VALUE %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['6'] }}</td>
+		<td style="text-align: right;">{{ employee._BEGVALUE_6_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee.__CTBVALUE_6_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._FRFVALUE_6_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._EXPINTVALUE_6_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._TFIOVALUE_6_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._WDWVALUE_6_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._ENDVALUE_6_0_ | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">{{employee.VESTPCT_6|round()}}%</td>
+		<td style="text-align: right;">{{ employee.__ENDVALUE_6_0_ | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+
+	{% if general.__ACTIVE_SEGMENTS['7'] == "Active"  and employee.__7_HAS_VALUE %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['7'] }}</td>
+		<td style="text-align: right;">{{ employee._BEGVALUE_7_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee.__CTBVALUE_7_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._FRFVALUE_7_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._EXPINTVALUE_7_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._TFIOVALUE_7_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._WDWVALUE_7_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._ENDVALUE_7_0_ | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">{{employee.VESTPCT_7|round()}}%</td>
+		<td style="text-align: right;">{{ employee.__ENDVALUE_7_0_ | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+	{% if general.__ACTIVE_SEGMENTS['8'] == "Active"  and employee.__8_HAS_VALUE %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['8'] }}</td>
+		<td style="text-align: right;">{{ employee._BEGVALUE_8_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee.__CTBVALUE_8_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._FRFVALUE_8_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._EXPINTVALUE_8_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._TFIOVALUE_8_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._WDWVALUE_8_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._ENDVALUE_8_0_ | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">{{employee.VESTPCT_8|round()}}%</td>
+		<td style="text-align: right;">{{ employee.__ENDVALUE_8_0_ | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+
+	{% if general.__ACTIVE_SEGMENTS['9'] == "Active"  and employee.__9_HAS_VALUE %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['9'] }}</td>
+		<td style="text-align: right;">{{ employee._BEGVALUE_9_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee.__CTBVALUE_9_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._FRFVALUE_9_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._EXPINTVALUE_9_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._TFIOVALUE_9_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._WDWVALUE_9_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._ENDVALUE_9_0_ | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">{{employee.VESTPCT_9|round()}}%</td>
+		<td style="text-align: right;">{{ employee.__ENDVALUE_9_0_ | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+
+
+	{% if general.__ACTIVE_SEGMENTS['10'] == "Active"  and employee.__10_HAS_VALUE %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['10'] }}</td>
+		<td style="text-align: right;">{{ employee._BEGVALUE_10_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee.__CTBVALUE_10_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._FRFVALUE_10_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._EXPINTVALUE_10_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._TFIOVALUE_10_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._WDWVALUE_10_0_ | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ employee._ENDVALUE_10_0_ | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">{{employee.VESTPCT_10|round()}}%</td>
+		<td style="text-align: right;">{{ employee.__ENDVALUE_10_0_ | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {% endif %}
+
+{% endfor %}	
+</table>
+
+<br>
+
+<table class="full-width"  cellspacing=0>
+
+    <thead>
+	<tr>
+		<th><u><b>Fund/Source</b></u></th>
+		<th>{{ general.__AS_OF_DATE_BEGIN }} <br><u><b>Balance</b></u></th>
+		<th><u><b>Contrib.</b></u></th>
+		<th><u><b>Forfeit.</b></u></th>
+		<th><u><b>Earnings</b></u></th>
+		<th><u><b>Transfers</b></u></th>
+		<th><u><b>Withdrawls</b></u></th>
+		<th>{{ general.__AS_OF_DATE }} <br><u><b>Balance</b></u></th>
+		<th>Vst<br><u><b>Pct</b></u></th>
+		<th>Vested<br><u><b>Amount</b></u></th>
+	</tr>
+    </thead>
+
+
+	<tr>
+		<td class="first-column">
+			<h3 style="margin-bottom:0px; padding-bottom: 0px;">Total</h3> 			
+
+		</td>
+		<td colspan="9" style="text-align: right;">&nbsp;</td>
+	</tr>	
+
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">
+            <b>Total</b>
+		</td>
+        <td style="text-align: right;"><b>{{ general.__BEGVALUE_GRAND_TOTAL  | number_format(2, '.', ',')}}</b></td>
+		<td style="text-align: right;"><b>{{ general.__CTBVALUE_GRAND_TOTAL  | number_format(2, '.', ',')}}</b></td>
+		<td style="text-align: right;"><b>{{ general.__FRFVALUE_GRAND_TOTAL  | number_format(2, '.', ',')}}</b></td>
+		<td style="text-align: right;"><b>{{ general.__EXPINTVALUE_GRAND_TOTAL  | number_format(2, '.', ',')}}</b></td>
+        <td style="text-align: right;"><b>{{ general.__TFIOVALUE_GRAND_TOTAL  | number_format(2, '.', ',')}}</b></td>
+		<td style="text-align: right;"><b>{{ general.__WDWVALUE_GRAND_TOTAL  | number_format(2, '.', ',')}}</b></td>
+		<td style="text-align: right;"><b>{{ general.__ENDVALUE_GRAND_TOTAL  | number_format(2, '.', ',')}}</b></td>
+		<td>&nbsp;</td>
+		<td style="text-align: right;"><b>{{ general.__ADDED_ENDVALUE_GRAND_TOTAL  | number_format(2, '.', ',')}}</b></td>
+
+	</tr>
+
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">
+			<b><u>Allocation by Source</u></b>
+		</td>
+		<td colspan="9">&nbsp;</td>
+	</tr>
+
+	{% if general.__ACTIVE_SEGMENTS['1'] == "Active" %}
+	<tr style="background-color:#e3f5fc">
+		<td class="first-column">{{ general.__SEGMENTS['1'] }}</td>
+		<td style="text-align: right;">{{ general.__BEGVALUE_1_0_GRAND_TOTAL  | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__CTBVALUE_1_0_GRAND_TOTAL  | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__FRFVALUE_1_0_GRAND_TOTAL  | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__EXPINTVALUE_1_0_GRAND_TOTAL  | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__TFIOVALUE_1_0_GRAND_TOTAL  | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__WDWVALUE_1_0_GRAND_TOTAL  | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__ENDVALUE_1_0_GRAND_TOTAL  | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">-</td>
+		<td style="text-align: right;">{{ general.__ADDED_ENDVALUE_1_0_GRAND_TOTAL  | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+	{% if general.__ACTIVE_SEGMENTS['2'] == "Active" %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['2'] }}</td>
+		<td style="text-align: right;">{{ general.__BEGVALUE_2_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__CTBVALUE_2_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__FRFVALUE_2_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__EXPINTVALUE_2_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__TFIOVALUE_2_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__WDWVALUE_2_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__ENDVALUE_2_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">-</td>
+		<td style="text-align: right;">{{ general.__ADDED_ENDVALUE_2_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+
+	{% if general.__ACTIVE_SEGMENTS['3'] == "Active"  %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['3'] }}</td>
+		<td style="text-align: right;">{{ general.__BEGVALUE_3_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__CTBVALUE_3_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__FRFVALUE_3_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__EXPINTVALUE_3_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__TFIOVALUE_3_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+        <td style="text-align: right;">{{ general.__WDWVALUE_3_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__ENDVALUE_3_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">-</td>
+		<td style="text-align: right;">{{ general.__ADDED_ENDVALUE_3_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+	{% if general.__ACTIVE_SEGMENTS['4'] == "Active" %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['4'] }}</td>
+		<td style="text-align: right;">{{ general.__BEGVALUE_4_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__CTBVALUE_4_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__FRFVALUE_4_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__EXPINTVALUE_4_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__TFIOVALUE_4_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__WDWVALUE_4_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__ENDVALUE_4_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">-</td>
+		<td style="text-align: right;">{{ general.__ADDED_ENDVALUE_4_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+
+	{% if general.__ACTIVE_SEGMENTS['5'] == "Active" %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['5'] }}</td>
+		<td style="text-align: right;">{{ general.__BEGVALUE_5_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__CTBVALUE_5_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__FRFVALUE_5_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__EXPINTVALUE_5_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__TFIOVALUE_5_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__WDWVALUE_5_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__ENDVALUE_5_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">-</td>
+		<td style="text-align: right;">{{ general.__ADDED_ENDVALUE_5_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+
+	{% if general.__ACTIVE_SEGMENTS['6'] == "Active" %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['6'] }}</td>
+		<td style="text-align: right;">{{ general.__BEGVALUE_6_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__CTBVALUE_6_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__FRFVALUE_6_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__EXPINTVALUE_6_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__TFIOVALUE_6_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__WDWVALUE_6_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__ENDVALUE_6_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">-</td>
+		<td style="text-align: right;">{{ general.__ADDED_ENDVALUE_6_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+
+	{% if general.__ACTIVE_SEGMENTS['7'] == "Active" %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['7'] }}</td>
+		<td style="text-align: right;">{{ general.__BEGVALUE_7_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__CTBVALUE_7_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__FRFVALUE_7_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__EXPINTVALUE_7_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__TFIOVALUE_7_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__WDWVALUE_7_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__ENDVALUE_7_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">-</td>
+		<td style="text-align: right;">{{ general.__ADDED_ENDVALUE_7_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+	{% if general.__ACTIVE_SEGMENTS['8'] == "Active" %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['8'] }}</td>
+		<td style="text-align: right;">{{ general.__BEGVALUE_8_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__CTBVALUE_8_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__FRFVALUE_8_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__EXPINTVALUE_8_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__TFIOVALUE_8_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__WDWVALUE_8_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__ENDVALUE_8_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">-</td>
+		<td style="text-align: right;">{{ general.__ADDED_ENDVALUE_8_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+	{% if general.__ACTIVE_SEGMENTS['9'] == "Active" %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['9'] }}</td>
+		<td style="text-align: right;">{{ general.__BEGVALUE_9_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__CTBVALUE_9_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__FRFVALUE_9_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__EXPINTVALUE_9_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__TFIOVALUE_9_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__WDWVALUE_9_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__ENDVALUE_9_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">-</td>
+		<td style="text-align: right;">{{ general.__ADDED_ENDVALUE_9_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+	{% if general.__ACTIVE_SEGMENTS['10'] == "Active" %}
+	<tr style="background-color: #e3f5fc;">
+		<td class="first-column">{{ general.__SEGMENTS['10'] }}</td>
+		<td style="text-align: right;">{{ general.__BEGVALUE_10_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__CTBVALUE_10_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__FRFVALUE_10_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__EXPINTVALUE_10_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__TFIOVALUE_10_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__WDWVALUE_10_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+		<td style="text-align: right;">{{ general.__ENDVALUE_10_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+        <td style="text-align: center;">-</td>
+		<td style="text-align: right;">{{ general.__ADDED_ENDVALUE_10_0_GRAND_TOTAL | number_format(2, '.', ',')}}</td>
+	</tr>
+	{% endif %}
+
+</table>
