@@ -1,0 +1,99 @@
+<h2>Participant Census</h2>
+<table id="employee-savings-plan" class="full-width"  cellspacing=0>
+    <thead>
+    <tr>
+		<th><u><b>Participant Name</b></u></th>
+		<th>Social<br>Security<br><u><b>Number</b></u></th>
+		<th><u><b>AA</b></u></th>
+		<th><u><b>RA</b></u></th>
+		<th>Date of<br><u><b>Birth</b></u></th>
+		<th>Date of<br><u><b>Employment</b></u></th>
+		<th>Date of<br><u><b>Participation</b></u></th>		
+		<th>Date of<br><u><b>Termination</b></u></th>
+		<th>Total<br><u><b>Compensation</b></u></th>
+		<th>Plan<br><u><b>Hours</b></u></th>
+		<th>Participation<br><u><b>Status</b></u></th>
+	</tr>
+</thead>
+<tbody>
+    {% for employee in employees %}
+    {% if employee.DISCARD != "1" %}
+
+	<tr>
+		<td class="first-column">{{ employee.NAME }}</td>
+		<td>{{ employee.SSNUM | ssnmask }}</td>
+		<td>{{ employee._AGENEAREST }}</td>
+		<td>{{ general.__RETIREMENT_AGE }}</td>
+		<td>{{ employee.BIRTH }}</td>
+		<td>{{ employee.HIRE }}</td>
+		<td>{{ employee.ENTRY }}</td>
+		<td>{{ employee.TERMIN }}</td>
+		<td style="text-align: right; padding-right: 15px;">{{ employee.COMP | number_format(2, '.', ',') }}</td>
+		<td>{{ employee.HOURS }}</td>
+        <td> 
+			{% if employee.PARTSTAT == "U" %}Union{% endif %}	
+			{% if employee.PARTSTAT == "E" %}Excluded Employee{% endif %}	
+			{% if employee.PARTSTAT == "A" %}Active{% endif %}	
+			{% if employee.PARTSTAT == "Y" %}Minimum Age{% endif %}	
+			{% if employee.PARTSTAT == "S" %}Min. Service{% endif %}	
+			{% if employee.PARTSTAT == "T" %}Terminated{% endif %}	
+			{% if employee.PARTSTAT == "W" %}Term. Before Entry{% endif %}	
+			{% if employee.PARTSTAT == "B" %}New Entrant{% endif %}	
+			{% if employee.PARTSTAT == "M" %}Term. 1000{% endif %}	
+			{% if employee.PARTSTAT == "N" %}Term. 500{% endif %}	
+			{% if employee.PARTSTAT == "H" %}Term. 500 - 1000{% endif %}	
+			{% if employee.PARTSTAT == "F" %}Term. Forfeited{% endif %}	
+			{% if employee.PARTSTAT == "R" %}Retired{% endif %}	
+			{% if employee.PARTSTAT == "P" %}Term. Paid{% endif %}	
+		</td>
+	
+
+	</tr>
+   {% endif %}
+   {% endfor %}
+
+</table>
+
+
+<table cellspacing=0 style="padding-top: 20px; padding-bottom: 20px;">
+	<tr>
+		<td>Total Employees:</td>
+		<td>&nbsp;</td>
+		<td style="text-align: right;">{{ general.__ACTIVE_EMPLOYEES + general.__INACTIVE_EMPLOYEES + general.__INELIGIBLE_EMPLOYEES }}</td>
+		<td style="width: 100px;"></td>
+		<td>Total Compensation:</td>
+		<td>&nbsp;</td>
+		<td style="text-align: right;">${{ general.__TOTALCOMP|number_format(2, '.', ',')  }}</td>
+	</tr>
+	<tr>
+		<td colspan="6">&nbsp;</td>
+	</tr>
+	<tr>
+		<td>Active Employees:</td>
+		<td>&nbsp;</td>
+		<td style="text-align: right;">{{ general.__ACTIVE_EMPLOYEES }}</td>
+		<td style="width: 100px;"></td>
+		<td>Active Total Compensation:</td>
+		<td>&nbsp;</td>
+		<td style="text-align: right;">${{ general.__ACTIVECOMP|number_format(2, '.', ',')  }}</td>
+	</tr>
+		<tr>
+		<td>Inactive Employees:</td>
+		<td>&nbsp;</td>
+		<td style="text-align: right;">{{ general.__INACTIVE_EMPLOYEES }}</td>
+		<td style="width: 100px;"></td>
+		<td>Inactive Total Compensation:</td>
+		<td>&nbsp;</td>
+		<td style="text-align: right;">${{ general.__INACTIVE_COMP|number_format(2, '.', ',')  }}</td>
+	</tr>
+		<tr>
+		<td>Ineligible Employees:</td>
+		<td>&nbsp;</td>
+		<td style="text-align: right;">{{ general.__INELIGIBLE_EMPLOYEES }}</td>
+		<td style="width: 100px;"></td>
+		<td>Ineligible Total Compensation:</td>
+		<td>&nbsp;</td>
+		<td style="text-align: right;">${{ general.__INELIGIBLE_COMP|number_format(2, '.', ',')  }}</td>
+	</tr>
+    </tbody>
+</table>
